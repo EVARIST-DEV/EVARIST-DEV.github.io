@@ -1,132 +1,63 @@
-<html>
-  <head>
-	<title>REGISTRATION FORM</title>
-    <style>
-      #form {
-        width: 500px;
-        margin: 50px auto;
-        background-color: lightgray;
-        padding: 20px;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>REGISTRATION FORM</title>
 
-      table {
-        width: 100%;
-        background-color: gainsboro;
-        border-collapse: collapse;
-      }
+</head>
 
-      th, td {
-        border: 1px solid black;
-        padding: 10px;
-      }
+<body>
+    <div class="bg-gray-100 h-screen flex items-center justify-center">
+    <form id="savingData" class="bg-red p-6 rounded-lg shadow-md w-full max-w-sm mr-5">
+        <h2 class="text-2xl font-medium font-bold mb-6 ml-20">Registration Form</h2>
 
-      th {
-        background-color: dimgray;
-        color: white;
-        text-align: left;
-      }
 
-	  button[type="submit"] {
-			background-color: green;
-			color: white;
-			padding: 10px 15px;
-			border: none;
-			border-radius: 5px;
-		}
-
-    </style>
-<head></head>
-    <script>
-      function checkForm() {
-        let name = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
-        let dob = document.getElementById("dob").value;
-        let terms = document.getElementById("terms").checked;
-
-        if (!name) {
-          alert("Please enter your name.");
-          return false;
-        }
-        if (!email) {
-          alert("Please enter your email.");
-          return false;
-        }
-        if (!password) {
-          alert("Please enter a password.");
-          return false;
-        }
-        if (!dob) {
-          alert("Please enter your date of birth.");
-          return false;
-        }
-
-        let today = new Date();
-        let birthdate = new Date(dob);
-        let age = today.getFullYear() - birthdate.getFullYear();
-        let m = today.getMonth() - birthdate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-          age--;
-        }
-
-        if (age < 18 || age > 55) {
-          alert("You must be between ages 18 and 55 to register.");
-          return false;
-        }
-
-        if (!terms) {
-          alert("Please accept the terms and conditions.");
-          return false;
-        }
-
-        let data = JSON.parse(localStorage.getItem("data")) || [];
-        data.push({
-          name: name,
-          email: email,
-          password: password,
-          dob: dob,
-          terms: terms
-        });
-        localStorage.setItem("data", JSON.stringify(data));
-        updateTable();
-
-        return false;
-      }
-
-      function updateTable() {
-        let data = JSON.parse(localStorage.getItem("data")) || [];
-        let table = document.getElementById("data-table");
-        table.innerHTML = "";
-
-        let header = document.createElement("tr");
-        header.innerHTML = "<th>Name</th><th>Email</th><th>Password</th><th>Dob</th><th>Accepted terms?</th>";
-        table.appendChild(header);
-
-        for (let i = 0; i < data.length; i++) {
-          let row = document.createElement("tr");
-          row.innerHTML = "<td>" + data[i].name + "</td>" +
-                         "<td>" + data[i].email + "</td>" +
-                         "<td>" + data[i].password + "</td>" +
-                         "<td>" + data[i].dob + "</td>" +
-                         "<td>" + (data[i].terms ? "Yes" : "No") + "</td>";
-          table.appendChild(row);
-        }
-      }
-    </script>
-  </head>
-  <body onload="updateTable()">
-    <form onsubmit="return checkForm()">
-        <input type="text" id="name" placeholder="Name"><br><br>
-        <input type="email" id="email" placeholder="Email"><br><br>
-        <input type="password" id="password" placeholder="Password"><br><br>
-        <input type="date" id="dob" placeholder="Date of Birth"><br><br>
-        <input type="checkbox" id="terms">I accept the terms and conditions<br><br>
-        <input type="submit" value="Submit">
-        </form>
-        <br><br>
-        <table id="data-table">
-        </table>
+        <div class="mb-4 flex">
+            <label class="block font-medium" for="name">Name</label>
+            <input required class=" w-2/4 p-2 ml-20 rounded-lg bg-blue-200 mb-5 flex-1 outline-none" placeholder="Enter name" type="text" id="name" name="name">
+        </div>
         
-          </body>
-        </html>
 
+        <div class="mb-4 flex">
+            <label class="block font-medium" for="email">Email</label>
+            <input required class="w-2/4 p-2 ml-20 rounded-lg flex-1 bg-blue-200 mb-5 outline-none" placeholder="Enter email" type="email" id="email" name="email">
+        </div>
+
+        <div class="mb-4 flex">
+            <label class="block font-medium" for="password">Password</label>
+            <input required class=" w-2/4 ml-12 p-2 rounded-lg flex-1 bg-blue-200 mb-5 outline-none" placeholder="Enter password" type="password" id="password" name="password">
+        </div>
+
+        <div class="mb-4 flex">
+            <label class="block font-medium" for="dob">Date of Birth</label>
+            <input required class="w-2/4 ml-7 p-2 rounded-lg flex-1 bg-blue-200 outline-none" type="date" id="dob" name="dob">
+        </div>
+
+        <div class=>
+            <input  required  class="mr-2 mb-4" type="checkbox" id="acceptTerms" name="acceptTerms">
+            <label  class="font-medium" for="acceptTerms">Accept Terms & Conditions</label>
+        </div>
+        
+        <button class="bg-blue-500 text-red py-2 px-4 rounded-lg hover:bg-blue-600 mb-3" type="submit">Submit</button>
+    </form>
+
+    <div style="display: inline-block;" class="bg-green">
+        <div class="mx-auto">
+           <h2 class="text-3xl text-center font-bold leading-tight">Entries</h2>
+           <div class="divide-y divide-green-300/50 " id="inserted_data"></div>
+           </div>
+     </div> 
+      
+
+</div>
+
+
+    <script src="./main.js"></script> 
+
+
+</body>
+</html>
